@@ -9,9 +9,7 @@ UTankAimingComponent::UTankAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
+	PrimaryComponentTick.bCanEverTick = true; // TODO: should this really tick?
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
@@ -27,15 +25,22 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		StartLocation,
 		HitLocation,
 		LaunchSpeed,
+		false,
+		0,
+		0,
 		ESuggestProjVelocityTraceOption::DoNotTrace
 	);
 	
 	if (bHaveAimSolution)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("AimSolution Found"));
 		// Calculate the OutLaunchVelocity
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal(); // makes the "green arrow to white arrow" so turn speed to direction
 		MoveBarrelTowards(AimDirection);
-		UE_LOG(LogTemp, Warning, TEXT("Barrel-Elevate() called"));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No aim solution!"));
 	}
 	// if no solution found do nothing
 
