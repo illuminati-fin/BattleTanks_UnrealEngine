@@ -5,6 +5,7 @@
 #include "TankBarrel.h"
 #include "TankTurret.h"
 #include "TankAimingComponent.h"
+#include "TankMovementComponent.h"
 #include "Projectile.h"
 
 // Sets default values
@@ -15,6 +16,8 @@ ATank::ATank()
 	
 	// No need to protect pointers as added at construction
 	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
+
+	//Movement component was removed here because it was made blueprint spawnable
 }
 
 // Called when the game starts or when spawned
